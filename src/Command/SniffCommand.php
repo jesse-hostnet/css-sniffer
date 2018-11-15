@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class SniffCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('sniff')
@@ -57,13 +57,13 @@ final class SniffCommand extends Command
             ->setDescription('Sniffs the given input file and returns the result.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $standard = Standard::loadFromXmlFile($this->guessStandard($input->getOption('standard')));
 
         if ($input->getOption('stdin')) {
             // use the first file passed as the file name.
-            $file = !empty($input->getArgument('files')) ? current($input->getArgument('files')) : 'stdin';
+            $file = !empty($input->getArgument('files')) ? \current($input->getArgument('files')) : 'stdin';
 
             $config = new StdinConfiguration($file);
         } elseif ($input->hasArgument('files') && !empty($input->getArgument('files'))) {
@@ -108,12 +108,12 @@ final class SniffCommand extends Command
             return $standard;
         }
 
-        if (file_exists('csssniff.xml')) {
-            return realpath('csssniff.xml');
+        if (\file_exists('csssniff.xml')) {
+            return \realpath('csssniff.xml');
         }
 
-        if (file_exists('csssniff.xml.dist')) {
-            return realpath('csssniff.xml.dist');
+        if (\file_exists('csssniff.xml.dist')) {
+            return \realpath('csssniff.xml.dist');
         }
 
         return 'Hostnet';

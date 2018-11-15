@@ -5,7 +5,8 @@
     "require": {
         "php":                      ">=7.1",
         "symfony/console":          "^3.3||^4.0",
-        "yannickl88/css-tokenizer": "^1.1.1"
+        "yannickl88/css-tokenizer": "^1.1.1",
+        "ext-json": "*"
     },
     "require-dev": {
         "hostnet/phpcs-tool": "^8.0.0",

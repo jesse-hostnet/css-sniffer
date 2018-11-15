@@ -23,12 +23,12 @@ class SniffCommandTest extends TestCase
      */
     private $sniff_command;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sniff_command = new SniffCommand();
     }
 
-    public function testExecuteStandardConfig()
+    public function testExecuteStandardConfig(): void
     {
         $input  = new ArrayInput([]);
         $output = new BufferedOutput();
@@ -37,11 +37,11 @@ class SniffCommandTest extends TestCase
 
         self::assertEquals(
             "\n",
-            trim($output->fetch()) . "\n"
+            \trim($output->fetch()) . "\n"
         );
     }
 
-    public function testExecuteConsoleOutput()
+    public function testExecuteConsoleOutput(): void
     {
         $input  = new ArrayInput(['files' => [__DIR__ . '/test.less']]);
         $output = new BufferedOutput();
@@ -49,12 +49,12 @@ class SniffCommandTest extends TestCase
         $this->sniff_command->run($input, $output);
 
         self::assertEquals(
-            str_replace('{{FILE}}', __DIR__ . '/test.less', file_get_contents(__DIR__ . '/output.console.txt')),
-            trim($output->fetch()) . "\n"
+            \str_replace('{{FILE}}', __DIR__ . '/test.less', \file_get_contents(__DIR__ . '/output.console.txt')),
+            \trim($output->fetch()) . "\n"
         );
     }
 
-    public function testExecuteJsonOutput()
+    public function testExecuteJsonOutput(): void
     {
         $input  = new ArrayInput(['--format' => 'json', 'files' => [__DIR__ . '/test.less']]);
         $output = new BufferedOutput();
@@ -62,16 +62,16 @@ class SniffCommandTest extends TestCase
         $this->sniff_command->run($input, $output);
 
         self::assertEquals(
-            str_replace(
+            \str_replace(
                 '{{FILE}}',
-                json_encode(__DIR__ . '/test.less'),
-                file_get_contents(__DIR__ . '/output.json.txt')
+                \json_encode(__DIR__ . '/test.less'),
+                \file_get_contents(__DIR__ . '/output.json.txt')
             ),
-            trim($output->fetch()) . "\n"
+            \trim($output->fetch()) . "\n"
         );
     }
 
-    public function testExecuteCheckstyleOutput()
+    public function testExecuteCheckstyleOutput(): void
     {
         $input  = new ArrayInput(['--format' => 'checkstyle', 'files' => [__DIR__ . '/test.less']]);
         $output = new BufferedOutput();
@@ -79,12 +79,12 @@ class SniffCommandTest extends TestCase
         $this->sniff_command->run($input, $output);
 
         self::assertEquals(
-            str_replace('{{FILE}}', __DIR__ . '/test.less', file_get_contents(__DIR__ . '/output.checkstyle.txt')),
-            trim($output->fetch()) . "\n"
+            \str_replace('{{FILE}}', __DIR__ . '/test.less', \file_get_contents(__DIR__ . '/output.checkstyle.txt')),
+            \trim($output->fetch()) . "\n"
         );
     }
 
-    public function testExecuteEmptyInput()
+    public function testExecuteEmptyInput(): void
     {
         $input  = new ArrayInput(['--format' => 'json', 'files' => [__DIR__ . '/empty.less']]);
         $output = new BufferedOutput();
@@ -97,7 +97,7 @@ class SniffCommandTest extends TestCase
         );
     }
 
-    public function testExecuteErrorInput()
+    public function testExecuteErrorInput(): void
     {
         $input  = new ArrayInput(['--format' => 'json', 'files' => [__DIR__ . '/error.less']]);
         $output = new BufferedOutput();
