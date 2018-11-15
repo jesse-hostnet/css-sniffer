@@ -112,7 +112,7 @@ class SniffCommandTest extends TestCase
 
     public function testRunWithEmptyFormatThrowsException(): void
     {
-        $input = new StringInput('--format');
+        $input  = new StringInput('--format');
         $output = new NullOutput();
 
         $this->expectException(RuntimeException::class);
@@ -123,7 +123,7 @@ class SniffCommandTest extends TestCase
 
     public function testRunWithEmptyStandardThrowsException(): void
     {
-        $input = new StringInput('--standard');
+        $input  = new StringInput('--standard');
         $output = new NullOutput();
 
         $this->expectException(RuntimeException::class);
