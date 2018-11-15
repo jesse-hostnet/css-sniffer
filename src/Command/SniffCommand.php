@@ -30,14 +30,14 @@ final class SniffCommand extends Command
             ->addOption(
                 'format',
                 null,
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Type of output format, default: console',
                 'console'
             )
             ->addOption(
                 'standard',
                 's',
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Code Standard to use, by default the Hostnet standard is used. This is the path to the xml file.'
             )
             ->addOption(

@@ -7,8 +7,11 @@ declare(strict_types=1);
 namespace Hostnet\Component\CssSniff\Command;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * @covers \Hostnet\Component\CssSniff\Command\SniffCommand
@@ -105,5 +108,27 @@ class SniffCommandTest extends TestCase
             '"unclosed"' . PHP_EOL,
             $output->fetch()
         );
+    }
+
+    public function testRunWithEmptyFormatThrowsException(): void
+    {
+        $input = new StringInput('--format');
+        $output = new NullOutput();
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('option requires a value');
+
+        $this->sniff_command->run($input, $output);
+    }
+
+    public function testRunWithEmptyStandardThrowsException(): void
+    {
+        $input = new StringInput('--standard');
+        $output = new NullOutput();
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('option requires a value');
+
+        $this->sniff_command->run($input, $output);
     }
 }
